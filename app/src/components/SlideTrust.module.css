@@ -1,0 +1,209 @@
+.slide {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-grey-light);
+  display: flex;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 5rem 3rem 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--color-navy);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.accent {
+  color: var(--color-red);
+}
+
+.headingLine {
+  width: 80px;
+  height: 4px;
+  background: var(--color-red);
+  margin-bottom: 3rem;
+  border-radius: 2px;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  padding-bottom: 4rem;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-white);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.5rem;
+}
+
+.statusIcons {
+  font-size: 1.2rem;
+}
+
+.statusLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+}
+
+.statusValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.credCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-white);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.credCard:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.credIcon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--color-grey-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.credTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.credDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  line-height: 1.4;
+}
+
+.rightCol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.certCard {
+  background: var(--color-white);
+  border-radius: 12px;
+  border: 2px solid;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.certCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
+}
+
+.certIcon {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.certBody {
+  padding: 1.5rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.certSubtitle {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.certTitle {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 0.3rem;
+}
+
+.certDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.8rem;
+}
+
+.certCode {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1000px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+  .rightCol {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .heading {
+    font-size: 2rem;
+  }
+  .rightCol {
+    grid-template-columns: 1fr;
+  }
+}

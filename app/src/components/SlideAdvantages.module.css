@@ -1,0 +1,148 @@
+.slide {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bgDecor {
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 60%;
+  height: 120%;
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.03) 0%, rgba(164, 30, 34, 0.02) 100%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 5rem 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--color-navy);
+  margin-bottom: 3rem;
+  line-height: 1.1;
+}
+
+.accent {
+  color: var(--color-red);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-bottom: 4rem;
+  align-items: stretch;
+}
+
+.card {
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.35s ease;
+  background: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+
+.card.red::before {
+  background: var(--color-red);
+}
+
+.card.navy::before {
+  background: var(--color-navy);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.cardIcon {
+  color: var(--color-red);
+  margin-bottom: 1.2rem;
+}
+
+.card.navy .cardIcon {
+  color: var(--color-navy);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
+}
+
+.card.navy .cardTitle {
+  color: var(--color-navy);
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.bullet {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-red);
+  margin-top: 0.4rem;
+}
+
+.card.navy .bullet {
+  background: var(--color-navy);
+}
+
+@media (max-width: 900px) {
+  .heading {
+    font-size: 2rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
