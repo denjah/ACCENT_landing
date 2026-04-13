@@ -211,11 +211,58 @@ section {
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .slide-content {
     max-width: 900px;
     color: var(--white);
+    position: relative;
+    z-index: 3;
+}
+
+/* Hero Mascots */
+.mascot-hero-img {
+    position: absolute;
+    bottom: 20px;
+    right: 5%;
+    height: 85%;
+    max-height: 400px;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide.active-animation .mascot-hero-img {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.3s;
+}
+
+/* Specific Transforms */
+.slide.active-animation .mascot-1,
+.slide.active-animation .mascot-2 {
+    transform: translateX(0) scaleX(-1);
+}
+
+.slide.active-animation .mascot-3 {
+    transform: translateX(0) scale(1);
+}
+
+@media (max-width: 1024px) {
+    .mascot-hero-img {
+        opacity: 0.3 !important;
+        right: -10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .mascot-hero-img {
+        display: none;
+    }
 }
 
 .slide h1 {
@@ -276,6 +323,58 @@ section {
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 12px;
+}
+
+/* Banner Logos Ticker */
+.banner-logos-assembly {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.banner-logos-track {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    animation: banner-scroll 40s linear infinite;
+    white-space: nowrap;
+}
+
+.banner-logo-item {
+    height: 16px;
+    /* В 2 раза меньше (было 32px) */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.banner-logo-item img {
+    height: 100%;
+    width: auto;
+    filter: brightness(0) invert(1) opacity(0.6);
+    transition: opacity 0.3s;
+}
+
+.banner-logo-item:hover img {
+    opacity: 1;
+}
+
+@keyframes banner-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Остановка при наведении (опционально) */
+.banner-logos-assembly:hover .banner-logos-track {
+    animation-play-state: paused;
 }
 
 .slider-nav {
@@ -461,37 +560,111 @@ section {
 }
 
 /* =========================================
-   MANUFACTURERS
+   MANUFACTURERS (HORIZONTAL TICKER)
    ========================================= */
 
-.manufacturers-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background: var(--gray-200);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius-md);
-    overflow: hidden;
+.ticker-container {
     margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+    position: relative;
 }
 
-.man-box {
-    background: var(--white);
-    height: 100px;
+/* Градиентное затухание по краям */
+.ticker-container::before,
+.ticker-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ticker-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--white), transparent);
+}
+
+.ticker-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--white), transparent);
+}
+
+.ticker-row {
+    display: flex;
+    white-space: nowrap;
+}
+
+.ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 10px 0;
+}
+
+.ticker-item {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    color: var(--gray-400);
-    transition: all 0.3s;
-    filter: grayscale(1);
+    height: 60px;
+    width: 140px;
+    padding: 12px;
+    transition: all 0.3s ease;
 }
 
-.man-box:hover {
-    color: var(--color-primary-base);
-    filter: grayscale(0);
-    background: var(--gray-50);
+.ticker-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(1) opacity(0.5);
+    transition: all 0.3s ease;
+}
+
+.ticker-item:hover img {
+    filter: grayscale(0) opacity(1);
+}
+
+.ticker-item:hover img {
+    filter: grayscale(0) opacity(1);
+}
+
+/* Анимации */
+.ticker-right .ticker-track {
+    animation: scroll-right 40s linear infinite;
+}
+
+.ticker-left .ticker-track {
+    animation: scroll-left 40s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-50% - 20px));
+    }
+}
+
+@keyframes scroll-right {
+    0% {
+        transform: translateX(calc(-50% - 20px));
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Остановка при наведении */
+.ticker-row:hover .ticker-track {
+    animation-play-state: paused;
 }
 
 /* =========================================
@@ -544,6 +717,27 @@ section {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
+/* Mouse Grid Canvas */
+.mouse-grid-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-mouse-grid="true"] {
+    position: relative;
+    overflow: hidden;
+}
+
+[data-mouse-grid="true"]>.wide-container {
+    position: relative;
+    z-index: 1;
+}
+
 .adv-card h4 {
     margin-bottom: 10px;
 }
@@ -563,19 +757,28 @@ section {
     display: flex;
     justify-content: space-between;
     margin-top: 60px;
+    /* Оверфлоу скрыт, чтобы плавающие иконки не вылезали за секцию */
+    padding-bottom: 120px;
 }
 
+/* Горизонтальная линия-соединитель между шагами */
 .steps-container::before {
     content: '';
     position: absolute;
-    top: 25px;
+    /* Выровнено по центру кружка (кружок 56px, top его старта ≈ 90px из-за плавающей иконки наверху) */
+    top: 118px;
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--gray-400);
+    background: linear-gradient(to right,
+            transparent,
+            var(--gray-600) 10%,
+            var(--gray-600) 90%,
+            transparent);
     z-index: 1;
 }
 
+/* Каждый шаг — относительно позиционирован, чтобы плавающая иконка была привязана к нему */
 .step {
     position: relative;
     z-index: 2;
@@ -584,26 +787,205 @@ section {
     align-items: center;
     text-align: center;
     width: 160px;
+    /* Отступ сверху оставляем место для плавающей иконки */
+    padding-top: 96px;
+    transition: 0.3s ease;
 }
 
+/* Кружок с иконкой */
 .step-circle {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     border: 2px solid var(--color-primary-base);
-    background: var(--white);
+    background: var(--gray-900);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    margin-bottom: 16px;
-    transition: 0.3s;
+    margin-bottom: 20px;
+    transition: all 0.35s ease;
+    position: relative;
+    z-index: 3;
+    /* Тень-свечение в покое — тонкое */
+    box-shadow: 0 0 0 0 rgba(196, 30, 58, 0);
 }
 
+/* Маленькая иконка внутри кружка */
+.step-circle-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    /* SVG рендерится белым через фильтр */
+    filter: brightness(0) invert(1);
+    transition: all 0.35s ease;
+    opacity: 0.85;
+}
+
+/* Ховер на шаг: кружок заливается красным, иконка белая */
 .step:hover .step-circle {
     background: var(--color-primary-base);
+    box-shadow: 0 0 24px rgba(196, 30, 58, 0.45), 0 0 6px rgba(196, 30, 58, 0.3);
+    transform: scale(1.08);
+}
+
+.step:hover .step-circle-icon {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+}
+
+/* Заголовок и описание шага */
+.step h4 {
     color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+}
+
+.step p {
+    color: var(--gray-600);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+}
+
+.step:hover h4 {
+    color: var(--color-primary-base);
+}
+
+.step:hover p {
+    color: var(--gray-400);
+}
+
+/* ========================================
+   ПЛАВАЮЩАЯ КРУПНАЯ ИКОНКА (орбита вокруг шага)
+   ======================================== */
+
+/*
+ * .step-icon-float — крупная декоративная иконка.
+ * Находится в position: absolute внутри .step (relative, z-index: 2).
+ * Двигается по кругу через анимацию circular-orbit.
+ *
+ * Механика: сама иконка стоит на месте, вращается её обёртка.
+ * Чтобы иконка не вращалась вместе с обёрткой — применяем counter-rotate.
+ */
+.step-icon-float {
+    /* Центрируем по горизонтали относительно .step */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    /* Размер орбитального контейнера */
+    width: 72px;
+    height: 72px;
+    /* Смещаем назад на половину ширины, чтобы центрировать */
+    margin-left: -36px;
+    margin-top: -36px;
+
+    /* Иконка плывёт вдоль окружности через translate offset + rotate wrapper */
+    animation: step-orbit 10s linear infinite;
+    transform-origin: 50% 110px;
+    /* радиус орбиты: 110px от центра обёртки */
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* Каждый шаг — чуть другая фаза, чтобы не двигались синхронно */
+.step-icon-float--1 {
+    animation-delay: 0s;
+    animation-duration: 14s;
+}
+
+.step-icon-float--2 {
+    animation-delay: -2.8s;
+    animation-duration: 16s;
+}
+
+.step-icon-float--3 {
+    animation-delay: -5.6s;
+    animation-duration: 15s;
+}
+
+.step-icon-float--4 {
+    animation-delay: -1.4s;
+    animation-duration: 13s;
+}
+
+.step-icon-float--5 {
+    animation-delay: -7s;
+    animation-duration: 17s;
+}
+
+/* img внутри float-обёртки — counter-rotate, чтобы иконка всегда смотрела вертикально */
+.step-icon-float img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    /* Белый силуэт с низкой opacity — деликатный, инженерный */
+    filter: brightness(0) invert(1);
+    opacity: 0.12;
+    /* Счётчик-вращение компенсирует поворот родителя */
+    animation: step-orbit-counter 10s linear infinite;
+    transition: opacity 0.4s ease;
+}
+
+.step-icon-float--1 img {
+    animation-duration: 14s;
+    animation-delay: 0s;
+}
+
+.step-icon-float--2 img {
+    animation-duration: 16s;
+    animation-delay: -2.8s;
+}
+
+.step-icon-float--3 img {
+    animation-duration: 15s;
+    animation-delay: -5.6s;
+}
+
+.step-icon-float--4 img {
+    animation-duration: 13s;
+    animation-delay: -1.4s;
+}
+
+.step-icon-float--5 img {
+    animation-duration: 17s;
+    animation-delay: -7s;
+}
+
+/* При ховере на шаг — иконка становится заметнее и ускоряет орбиту */
+.step:hover .step-icon-float {
+    animation-duration: 5s !important;
+    opacity: 1;
+}
+
+.step:hover .step-icon-float img {
+    opacity: 0.45;
+    filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(3000%) hue-rotate(335deg) brightness(90%);
+    animation-duration: 5s !important;
+}
+
+/* @keyframes: орбитальное вращение — полный оборот */
+@keyframes step-orbit {
+    from {
+        transform: rotate(0deg) translateX(0) translateY(-70px);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(0) translateY(-70px);
+    }
+}
+
+/* Счётчик-вращение: обратное, чтобы иконка не вращалась */
+@keyframes step-orbit-counter {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
 }
 
 /* =========================================
@@ -618,6 +1000,49 @@ section {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: var(--space-10);
+}
+
+.form-left-col {
+    position: relative;
+    padding-bottom: 220px;
+}
+
+.form-left-col h2,
+.form-left-col p,
+.form-left-col .section-tag {
+    position: relative;
+    z-index: 2;
+}
+
+.mascot-form-img {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    max-width: 250px;
+    opacity: 0.9;
+    object-fit: contain;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .form-split {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+
+    .form-left-col {
+        padding-bottom: 0;
+    }
+
+    .mascot-form-img {
+        display: none;
+    }
+}
+
+.form-main {
+    position: relative;
+    z-index: 1;
 }
 
 .form-inputs {
